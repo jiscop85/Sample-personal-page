@@ -85,3 +85,80 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+     {/* Featured Posts */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold">مقالات ویژه</h2>
+            <Button variant="outline" className="gap-2" asChild>
+              <Link to="/articles">
+                مشاهده همه
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredPosts.map((post) => (
+              <Link to={`/article/${post.id}`} key={post.id}>
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-primary text-primary-foreground">
+                        {post.category}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {post.date}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <User className="w-4 h-4" />
+                        {post.author}
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex gap-2">
+                        {post.tags.slice(0, 2).map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      <span className="text-sm text-muted-foreground">
+                        {post.readTime}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
