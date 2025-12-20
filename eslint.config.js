@@ -1,30 +1,29 @@
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
 
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>هوش مصنوعی نو - وبلاگ تخصصی AI</title>
-    <meta name="description" content="مرجع تخصصی مقالات، آموزش‌ها و آخرین اخبار دنیای هوش مصنوعی و یادگیری ماشین" />
-    <meta name="author" content="AI Blog Persian" />
-
-    <!-- Persian Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <meta property="og:title" content="هوش مصنوعی نو - وبلاگ تخصصی AI" />
-    <meta property="og:description" content="مرجع تخصصی مقالات، آموزش‌ها و آخرین اخبار دنیای هوش مصنوعی و یادگیری ماشین" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ai_blog_persian" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+export default tseslint.config(
+  { ignores: ["dist"] },
+  {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  }
+);
